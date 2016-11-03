@@ -15,6 +15,8 @@ gem 'coffee-rails', '~> 4.2'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+gem 'httparty'
+
 # ES6
 # https://github.com/rails/sprockets/blob/master/UPGRADING.md#preference-for-asset-manifest-and-links
 gem 'sprockets', '>= 3.0.0'
