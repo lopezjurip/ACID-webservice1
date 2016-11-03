@@ -15,9 +15,11 @@ class Rest::LoginController < ApplicationController
   end
 
   def create
+    image, email = login_params.values_at(:image, :email)
+
     # Prepare request
-    endpoint = "#{SERVICE_URI}/rest/verify_user/#{login_params[:email]}"
-    body = { image: login_params[:image] }.to_json
+    endpoint = URI.join(SERVICE_URI, 'rest/', 'verify_user/', email).to_s
+    body = { image: image }.to_json
 
     # Call service
     response = HTTParty.post(endpoint, body: body, headers: JSON_HEADERS)
