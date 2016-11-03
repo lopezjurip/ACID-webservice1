@@ -14,9 +14,7 @@
  *= require_self
  */
 
-/*
-  Easy: http://jgthms.com/web-design-in-4-minutes
-*/
+/* Easy: http://jgthms.com/web-design-in-4-minutes */
 body {
   margin: 0 auto;
   max-width: 50em;
@@ -24,4 +22,10 @@ body {
   line-height: 1.5;
   padding: 4em 1em;
   color: #444;
+}
+
+/* Break lines on code (JSON) display */
+pre {
+  white-space:normal;
+  word-wrap: break-word;
 }
