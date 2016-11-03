@@ -1,4 +1,3 @@
-
 function readFileContent(file) {
   // Convert to ES6 Promise
   return new Promise((resolve, reject) => {
