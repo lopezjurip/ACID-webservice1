@@ -1,31 +1,22 @@
-require 'httparty'
-
-# Private service constants
-JSON_HEADERS = {
-  'Content-Type' => 'application/json',
-  'Accept' => 'application/json'
-}.freeze
+require_relative '../../../lib/webservice2'
 
 SERVICE_URI = ENV['SERVICE_URI'] || 'http://localhost:3000'
 
 # Handmade controller
 class Rest::LoginController < ApplicationController
+  # Ensure WebService2 communicator object is instantiated
+  before_filter :set_webservice2
+
   def index
     # renders by default: '/app/views/rest/login/index.html.erb'
   end
 
   def create
-    image, email = login_params.values_at(:image, :email)
+    email, image = login_params.values_at(:email, :image)
     user_agent = request.user_agent
 
-    # Prepare request
-    endpoint = URI.join(SERVICE_URI, 'rest/', 'verify_user/', email).to_s
-    body = { image: image }.to_json
-
-    # Call service
-    response = HTTParty.post(endpoint, body: body, headers: JSON_HEADERS)
-
-    case response.code
+    # Call webservice and get status code
+    case @webservice2.validate(email, image).code
     when 200
       LoginNotifierMailer.send_result(email, 'OK', user_agent).deliver_later
       render json: { message: 'OK' }, status: 200
@@ -43,5 +34,9 @@ class Rest::LoginController < ApplicationController
 
   def login_params
     params.permit(:email, :image)
+  end
+
+  def set_webservice2
+    @webservice2 ||= WebService2.new(SERVICE_URI)
   end
 end
