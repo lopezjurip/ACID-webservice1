@@ -16,6 +16,14 @@ Install dependencies:
 bundle install
 ```
 
+Setup environment variables:
+
+```sh
+export EMAIL_USERNAME=username
+export EMAIL_PASSWORD=password
+export EMAIL_DOMAIN=sender.mydomain.com
+```
+
 Run web app at [`http://localhost:3000`](http://localhost:3000):
 
 ```sh
