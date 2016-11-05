@@ -16,6 +16,7 @@ class Rest::LoginController < ApplicationController
 
   def create
     image, email = login_params.values_at(:image, :email)
+    user_agent = request.user_agent
 
     # Prepare request
     endpoint = URI.join(SERVICE_URI, 'rest/', 'verify_user/', email).to_s
@@ -26,8 +27,10 @@ class Rest::LoginController < ApplicationController
 
     case response.code
     when 200
+      LoginNotifierMailer.send_result(email, 'OK', user_agent).deliver_later
       render json: { message: 'OK' }, status: 200
     when 401
+      LoginNotifierMailer.send_result(email, 'No Autorizado', user_agent).deliver_later
       render json: { message: 'No Autorizado' }, status: 401
     when 402...500
       render json: { message: 'Mala solicitud' }, status: 400
