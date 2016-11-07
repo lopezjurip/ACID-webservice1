@@ -22,6 +22,9 @@ Setup environment variables:
 export EMAIL_USERNAME=username
 export EMAIL_PASSWORD=password
 export EMAIL_DOMAIN=sender.mydomain.com
+
+# To connect with WebService2:
+export SERVICE_URI=http://localhost:4000 # change as needed
 ```
 
 Run web app at [`http://localhost:3000`](http://localhost:3000):
@@ -29,3 +32,7 @@ Run web app at [`http://localhost:3000`](http://localhost:3000):
 ```sh
 rails start
 ```
+
+## Deploy
+
+See: [mrpatiwi/ACID-deploy](https://github.com/mrpatiwi/ACID-deploy).
